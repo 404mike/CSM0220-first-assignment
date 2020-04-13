@@ -17,25 +17,7 @@ class AMP_Media_Converter_User_Interaction:
         
         if is_valid_dir:
             files = amp_dir.list_directory_media(path, file_extensions)
-            print(files)
+            return files
         else:
             print("{} doesn't exist, try again".format(path))
-            self.get_dir_path(file_extensions)
-
-    def get_user_sub_directory_choice(self, sub_dir_list):
-        ''' Text
-        '''
-
-        while True:
-            try:
-                option =  int (input("Choose a number to search or 0 to choose a new directory: "))
-                
-                try:
-                    gotdata = sub_dir_list[option]
-                    return gotdata
-                except IndexError:
-                    print("Not a valid number, choose a number from the list")
-                    self.get_user_sub_directory_choice(sub_dir_list)
-                break
-            except ValueError:
-                print ("Not a number, try again")    
+            self.get_dir_path(file_extensions)  

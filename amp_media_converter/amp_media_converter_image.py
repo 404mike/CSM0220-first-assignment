@@ -8,6 +8,14 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
     ''' Image class
     '''
 
+    def convert(self):
+        ''' TEXT
+        '''
+
+        # Ask the user path to directory
+        foo = self.get_directory_path()
+        print(foo)
+
     def get_directory_path(self):
         ''' TEXT
         '''
@@ -15,6 +23,7 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
         file_extensions = ['jpg']
         user_input = AMP_Media_Converter_User_Interaction()
         dir_files = user_input.get_dir_path(file_extensions)
+        # print(dir_files)
         return dir_files
 
     def search_files(self):
@@ -41,17 +50,9 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
 
         pass
 
-    def convert(self):
-        ''' TEXT
-        '''
-
-        # Ask the user path to directory
-        self.get_directory_path()
-
     def create_directory(self):
         ''' TEXT
         '''
-        
 
         pass
 
