@@ -1,8 +1,8 @@
-from amp_media_converter import AMP_Media_Converter_Interface
-from amp_media_converter import AMP_Media_Converter_User_Interaction
 from PIL import Image
 from PIL import ImageOps
-import os
+from amp_media_converter import AMP_Media_Converter_Interface
+from amp_media_converter import AMP_Media_Converter_User_Interaction
+
 
 class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
     ''' Image class
@@ -12,9 +12,10 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
         ''' TEXT
         '''
 
+        file_extensions = ['jpg']
         user_input = AMP_Media_Converter_User_Interaction()
-        user_input.get_dir_path()
-        pass
+        dir_files = user_input.get_dir_path(file_extensions)
+        return dir_files
 
     def search_files(self):
         ''' TEXT
@@ -44,11 +45,13 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
         ''' TEXT
         '''
 
-        pass
+        # Ask the user path to directory
+        self.get_directory_path()
 
     def create_directory(self):
         ''' TEXT
         '''
+        
 
         pass
 
