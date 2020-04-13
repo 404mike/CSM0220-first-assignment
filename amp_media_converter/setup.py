@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="amp-media-converter", # Replace with your own username
+    name="amp-media-converter",
     version="0.0.1",
     author="Michael Jones",
     author_email="dmj12@aber.ac.uk",
