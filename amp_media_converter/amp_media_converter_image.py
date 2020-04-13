@@ -1,8 +1,7 @@
 from PIL import Image
 from PIL import ImageOps
 from amp_media_converter import AMP_Media_Converter_Interface
-from amp_media_converter import AMP_Media_Converter_User_Interaction
-
+from amp_media_converter import AMP_Media
 
 class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
     ''' Image class
@@ -11,7 +10,7 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
     def convert(self):
         ''' TEXT
         '''
-
+        
         # Ask the user path to directory
         foo = self.get_directory_path()
         print(foo)
@@ -21,8 +20,8 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
         '''
 
         file_extensions = ['jpg']
-        user_input = AMP_Media_Converter_User_Interaction()
-        dir_files = user_input.get_dir_path(file_extensions)
+        amp = AMP_Media()
+        dir_files = amp.get_dir_path(file_extensions)
         # print(dir_files)
         return dir_files
 
