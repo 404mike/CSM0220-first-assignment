@@ -9,28 +9,29 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
     def __init__(self):
         self.thumb_dir = 'thumbnails'
 
-    def convert(self):
+    def convert(self, file_type=['jpg']):
         ''' TEXT
         '''
         
         # Ask the user path to directory
-        _, path, files = self.get_directory_path()
+        _, path, files = self.get_directory_path(file_type)
         self.process_files(path, files)
 
-    def get_directory_path(self):
+    def get_directory_path(self,file_type):
         ''' TEXT
         '''
-
-        file_extensions = ['jpg']
+        
+        # list
+        file_extensions = file_type
         amp = AMP_Media()
         dir_files = amp.get_dir_path(file_extensions)
         return dir_files 
 
-    def search_files(self):
+    def convert_multi_type(self, file_type):
         ''' TEXT
         '''
-
-        pass
+        
+        self.convert(file_type)
 
     def write_file(self):
         ''' TEXT
@@ -77,13 +78,15 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
 
     def convert_image(self, f, path, dir_name, thumb_size):
         ''' TEXT
-        TODO try/catch
         '''
 
         print("Converting {}".format(f))
-        basewidth = thumb_size
-        img = Image.open(path + '/' + f)
-        wpercent = (basewidth/float(img.size[0]))
-        hsize = int((float(img.size[1])*float(wpercent)))
-        img = img.resize((basewidth,hsize), Image.ANTIALIAS)
-        img.save(path + '/' + dir_name + '/' + f) 
+        try:
+            basewidth = thumb_size
+            img = Image.open(path + '/' + f)
+            wpercent = (basewidth/float(img.size[0]))
+            hsize = int((float(img.size[1])*float(wpercent)))
+            img = img.resize((basewidth,hsize), Image.ANTIALIAS)
+            img.save(path + '/' + dir_name + '/' + f) 
+        except IOError:
+            print("Unable to save file")
