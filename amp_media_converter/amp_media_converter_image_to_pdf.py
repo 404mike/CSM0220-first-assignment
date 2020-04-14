@@ -137,7 +137,7 @@ class AMP_Media_Converter_Image_To_PDF(AMP_Media_Converter_Interface):
 
             The method will prompt a user for a filename for the pdf.
 
-            The method will check that the location the thumbnails
+            The method will check that the location the PDF directory
             already exists. The default directory name is in the constructor
             self.thumb_dir
             The create_new_directory will try and create a new directory, but

@@ -134,7 +134,7 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
     def process_files(self, path, files):
         ''' Method to begin the image conversion
 
-            The method will prompt a user for a thumbnail size
+            The method will prompt a user for a thumbnail size,
             only a single number is required as convert_image method
             will convert the image by its longest path maintaining
             its aspect ratio
