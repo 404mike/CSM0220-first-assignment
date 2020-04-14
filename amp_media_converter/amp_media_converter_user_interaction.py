@@ -1,4 +1,4 @@
-# from amp_media_converter import AMP_Media_Converter_File_Manager
+import re
 
 class AMP_Media_Converter_User_Interaction:
     ''' Text
@@ -29,3 +29,14 @@ class AMP_Media_Converter_User_Interaction:
                 break
             except ValueError:
                 print ("Not a number, try again")  
+
+    def get_new_directory_name(self):
+        while True:
+            try:
+                new_dir_name = input ("Enter a new directory name ").strip()
+                if re.match(r'^[A-Za-z0-9_]+$', new_dir_name):
+                    return new_dir_name
+                else:
+                    print("Not a valid directory name")
+            except ValueError:
+                print ("Not a valid directory name")

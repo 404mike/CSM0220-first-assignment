@@ -72,12 +72,12 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
         amp_dir = AMP_Media()
         dir_name = amp_dir.create_new_directory(path, self.thumb_dir)
 
-        print("PATH {}".format(path))
         for f in files:
             self.convert_image(f, path, dir_name, thumb_size)
 
     def convert_image(self, f, path, dir_name, thumb_size):
         ''' TEXT
+        TODO try/catch
         '''
 
         print("Converting {}".format(f))

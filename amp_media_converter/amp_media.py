@@ -83,17 +83,10 @@ class AMP_Media:
         if is_valid_dir:
             print("{} directory already exists, create a new directory".format(dir_name))
             
-            while True:
-                try:
-                    new_dir_name = input ("Enter a new directory name ").strip()
-                    if re.match(r'^[A-Za-z0-9_]+$', new_dir_name):
-                        dir_name = new_dir_name
-                        amp_dir.create_directory(path + '/' + new_dir_name)
-                        return new_dir_name
-                    else:
-                        print("Not a valid directory name")
-                except ValueError:
-                    print ("Not a valid directory name")
+            user_interact = AMP_Media_Converter_User_Interaction()
+            new_dir_name = user_interact.get_new_directory_name()
+            amp_dir.create_directory(path + '/' + new_dir_name)
+            return new_dir_name
         else:
             amp_dir.create_directory(path + '/' + dir_name)
             return dir_name
