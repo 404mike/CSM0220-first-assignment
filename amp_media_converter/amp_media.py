@@ -5,23 +5,26 @@ class AMP_Media:
     ''' Text
     '''
     
-    
-    def get_dir_path(self,file_extensions):
+    def get_dir_path(self,file_extensions,path =''):
         ''' Text
         '''
+        
+        if not path:
+            user_interact = AMP_Media_Converter_User_Interaction()
+            # get user input for directory
+            path = user_interact.get_dir_path(file_extensions)
 
-        user_interact = AMP_Media_Converter_User_Interaction()
-        # get user input for directory
-        path = user_interact.get_dir_path(file_extensions)
         # validate directory path
         valid_dir = self.validate_dir_path(path, file_extensions)
 
         if valid_dir:
-            return self.check_fies_exist(path, file_extensions)
+            return self.check_fies_exist(path,file_extensions)
         else:
             print("{} doesn't exist, try again".format(path))
             self.get_dir_path(file_extensions)  
-      
+        # return [True,foo]
+
+
     def validate_dir_path(self, path, file_extensions):
         ''' Text
         '''
@@ -35,14 +38,17 @@ class AMP_Media:
             return False
 
     def check_fies_exist(self, path, file_extensions):
+
         amp_dir = AMP_Media_Converter_File_Manager()
         file_names = amp_dir.list_directory_media(path, file_extensions)
-        if not in file_names:
-            self.list_sub_dir()
+        
+        # if list is not empty
+        if file_names:
+            return [True,file_names]
         else:
-            return file_names
+            return self.list_sub_dir(path,file_extensions)
 
-    def list_sub_dir(self):
+    def list_sub_dir(self,path,file_extensions):
         amp_dir = AMP_Media_Converter_File_Manager()  
         user_interact = AMP_Media_Converter_User_Interaction()
         
@@ -57,4 +63,5 @@ class AMP_Media:
         else:
             new_path = path + '/' + chosen_sub_dir
 
-        # self.validate_dir_path(new_path, file_extensions)
+        # return new_path
+        return self.get_dir_path(file_extensions, new_path)

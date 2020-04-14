@@ -1,3 +1,40 @@
+from amp_media_converter import AMP_Media_Converter_User_Interaction
+from amp_media_converter import AMP_Media_Converter_File_Manager
+
+class AMP_Media:
+    ''' Text
+    '''
+    
+    def __init__(self):
+        self.path = ''
+        self.files = []
+    
+    def get_dir_path(self,file_extensions,path =''):
+        ''' Text
+        '''
+        print("Running get_dir_path {}".format(path))
+
+        if not path:
+            user_interact = AMP_Media_Converter_User_Interaction()
+            # get user input for directory
+            path = user_interact.get_dir_path(file_extensions)
+            
+        # validate directory path
+        valid_dir = self.validate_dir_path(path, file_extensions)
+
+        if valid_dir:
+            files = self.check_fies_exist(path,file_extensions)
+            if files:
+                print("HAS FILES {}")
+                # print(files)
+                print(self.files)
+                print("THE FILES")
+                return self.files
+                print("Are we still going?")
+        else:
+            print("{} doesn't exist, try again".format(path))
+            self.get_dir_path(file_extensions)  
+      
     def validate_dir_path(self, path, file_extensions):
         ''' Text
         '''
@@ -6,43 +43,41 @@
         is_valid_dir = amp_dir.validate_path(path)
 
         if is_valid_dir:
-            file_names = amp_dir.list_directory_media(path, file_extensions)
-            
-            # print("checking")
-            response = self.check_files_exist(file_names, path, file_extensions)
-            # print(dir)
-            
-            # print("end check")
-            if response:
-                # print(response)
-                return response
+            return True
         else:
-            print("{} doesn't exist, try again".format(path))
-            self.get_dir_path(file_extensions)  
+            return False
 
+    def check_fies_exist(self, path, file_extensions):
 
-    def check_files_exist(self, file_names, path, file_extensions):
-        ''' Text
-        '''
-
-        # if list is empty
-        if not file_names:  
-            amp_dir = AMP_Media_Converter_File_Manager()  
-            user_interact = AMP_Media_Converter_User_Interaction()
-            
-            # get a list of sub directories
-            sub_dir_list = amp_dir.list_directory_contents(path,file_extensions)
-
-            # ask user to choose from the list of directories
-            chosen_sub_dir = user_interact.get_user_sub_directory_choice(sub_dir_list)
-
-            if(path.endswith('/')):
-                new_path = path + chosen_sub_dir
-            else:
-                new_path = path + '/' + chosen_sub_dir
-
-            self.validate_dir_path(new_path, file_extensions)
-
-            # return [new_path, file_names]
+        amp_dir = AMP_Media_Converter_File_Manager()
+        file_names = amp_dir.list_directory_media(path, file_extensions)
+        
+        print("Checking {}".format(path))
+        print(file_names)
+        # if list is not empty
+        if file_names:
+            print("has files")
+            self.files = file_names
+            return [True,file_names]
         else:
-            return [path, file_names]
+            print("no files")
+            self.list_sub_dir(path,file_extensions)
+
+
+    def list_sub_dir(self,path,file_extensions):
+        amp_dir = AMP_Media_Converter_File_Manager()  
+        user_interact = AMP_Media_Converter_User_Interaction()
+        
+        # get a list of sub directories
+        sub_dir_list = amp_dir.list_directory_contents(path,file_extensions)
+
+        # ask user to choose from the list of directories
+        chosen_sub_dir = user_interact.get_user_sub_directory_choice(sub_dir_list)
+
+        if(path.endswith('/')):
+            new_path = path + chosen_sub_dir
+        else:
+            new_path = path + '/' + chosen_sub_dir
+
+        # return new_path
+        self.get_dir_path(file_extensions, new_path)
