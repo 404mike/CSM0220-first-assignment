@@ -14,7 +14,7 @@ class AMP_Media_Converter_File_Manager:
     def list_directory_media(self, path, file_extensions):
         ''' Text
         ''' 
-
+        
         valid_dir = self.validate_path(path)
 
         relevant_path = path

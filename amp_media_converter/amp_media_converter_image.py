@@ -13,7 +13,8 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
         
         # Ask the user path to directory
         foo = self.get_directory_path()
-        print(foo)
+        # print('test')
+        # print(foo)
 
     def get_directory_path(self):
         ''' TEXT
@@ -22,7 +23,6 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
         file_extensions = ['jpg']
         amp = AMP_Media()
         dir_files = amp.get_dir_path(file_extensions)
-        # print(dir_files)
         return dir_files
 
     def search_files(self):
