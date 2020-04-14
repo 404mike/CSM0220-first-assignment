@@ -59,7 +59,7 @@ class AMP_Media:
         user_interact = AMP_Media_Converter_User_Interaction()
         
         # get a list of sub directories
-        sub_dir_list = amp_dir.list_directory_contents(path,file_extensions)
+        sub_dir_list = amp_dir.list_sub_directory_contents(path)
 
         # ask user to choose from the list of directories
         chosen_sub_dir = user_interact.get_user_sub_directory_choice(sub_dir_list)
