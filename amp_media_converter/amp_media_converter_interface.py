@@ -15,12 +15,6 @@ class AMP_Media_Converter_Interface:
 
         raise NotImplementedError("Subclass must implement this abstract method")
 
-    def write_file(self):
-        ''' Method to allow a user to write a file
-        '''
-
-        raise NotImplementedError("Subclass must implement this abstract method")
-
     def delete_file(self):
         ''' Method to allow a user to delete a file
         '''

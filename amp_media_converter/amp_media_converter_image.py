@@ -76,12 +76,6 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
         # call convert method with list of file extensions
         self.convert(file_extensions)
 
-    def write_file(self, file, path):
-        ''' TEXT
-        '''
-
-        pass
-
     def delete_file(self, path):
         ''' Method to delete a file
 
