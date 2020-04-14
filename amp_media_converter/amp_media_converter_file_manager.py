@@ -1,3 +1,4 @@
+import os
 import os.path
 
 class AMP_Media_Converter_File_Manager:
@@ -15,7 +16,7 @@ class AMP_Media_Converter_File_Manager:
         ''' Text
         ''' 
         
-        valid_dir = self.validate_path(path)
+        #valid_dir = self.validate_path(path)
 
         relevant_path = path
         included_extensions = file_extensions
@@ -56,11 +57,16 @@ class AMP_Media_Converter_File_Manager:
         
         pass
 
-    def create_directory(self, path, dirName):
+    def create_directory(self, path):
         ''' Text
         '''
-        
-        pass
+
+        try:
+            os.mkdir(path)
+        except OSError:
+            print ("Creation of the directory %s failed" % path)
+        else:
+            print ("Successfully created the directory %s " % path)
 
     def delete_file(self, path):
         ''' Text
