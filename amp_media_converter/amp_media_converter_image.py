@@ -129,8 +129,8 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
                 print ("Not a number, try again") 
                  
         # check thumbnail directory exists
-        amp_dir = AMP_Media()
-        dir_name = amp_dir.create_thumbnail_directory(path, self.thumb_dir)
+        amp_media = AMP_Media()
+        dir_name = amp_media.create_processed_items_directory(path, self.thumb_dir)
 
         # loop each file and send it to convert_image to be processed
         for f in files:

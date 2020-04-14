@@ -16,7 +16,7 @@ class AMP_Media:
         validate_dir_path
         check_fies_exist
         list_sub_dir
-        create_thumbnail_directory
+        create_processed_items_directory
         create_new_diretory
 
     '''
@@ -49,7 +49,7 @@ class AMP_Media:
         valid_dir = self.validate_dir_path(path)
 
         if valid_dir:
-            return self.check_fies_exist(path,file_extensions)
+            return self.check_files_exist(path,file_extensions)
         else:
             print("{} doesn't exist, try again".format(path))
             self.get_dir_path(file_extensions)  
@@ -77,7 +77,7 @@ class AMP_Media:
         else:
             return False
 
-    def check_fies_exist(self, path, file_extensions):
+    def check_files_exist(self, path, file_extensions):
         ''' Method to check if there are files with the 
             file extentension in the directory path
 
@@ -116,6 +116,21 @@ class AMP_Media:
     def list_sub_dir(self, path, file_extensions):
         ''' Method to list sub directories in a given directory
 
+            This method is called if no files are found
+            in check_fies_exist method.
+
+            A list of directries in the path directory
+            if there are any, which is called from the
+            sub_dir_list method from the 
+            AMP_Media_Converter_File_Manager class.
+
+            The user is then prompted to choose one of the
+            sub directories or to start over from the start.
+
+            Once a sub directory has been chosen, a new
+            path is created and we call the get_dir_path
+            method, to begin the process again.
+
             Args:
                 path (string) - directory path
 
@@ -130,6 +145,7 @@ class AMP_Media:
         # ask user to choose from the list of directories
         chosen_sub_dir = user_interact.get_user_sub_directory_choice(sub_dir_list)
 
+        # format the path with a slash
         if(path.endswith('/')):
             new_path = path + chosen_sub_dir
         else:
@@ -138,27 +154,70 @@ class AMP_Media:
         # return new_path
         return self.get_dir_path(file_extensions, new_path)
 
-    def create_thumbnail_directory(self, path, dir_name):
-        ''' Text
+    def create_processed_items_directory(self, path, dir_name):
+        ''' Method to create a processed item directory
+            for the processed items - such as thumbnails.
+
+            The method uses the create_directory method from 
+            the AMP_Media_Converter_File_Manager class
+            to create new directories.
+
+            This method will first check to see if the directory
+            we're trying to create already exists?
+
+            If the directory does already exist, prompt the
+            user to enter a new name for the directory, this 
+            is done through the get_new_directory_name method 
+            from the AMP_Media_Converter_User_Interaction class.
+            Once a new name has been chosen, create the directory
+            from the create_directory method from the
+            AMP_Media_Converter_File_Manager class.
+
+            If there isn't a directory with the directory name,
+            create the directory from the create_directory method 
+            from the AMP_Media_Converter_File_Manager class.
+
+            Args:
+                path (string) - directory path
+                dir_name (string) - name of the new directory
+
+            Returns:
+                string - new processed items directory name
         '''
 
         amp_dir = AMP_Media_Converter_File_Manager()
 
+        # check if directory already exists
         is_valid_dir = self.validate_dir_path(path + '/' + dir_name)
 
+        # if it does - prompt the user to choose a new directory name
         if is_valid_dir:
             print("{} directory already exists, create a new directory".format(dir_name))
             
+            # get user input
             user_interact = AMP_Media_Converter_User_Interaction()
             new_dir_name = user_interact.get_new_directory_name()
+            # create new directory
             amp_dir.create_directory(path + '/' + new_dir_name)
             return new_dir_name
         else:
+            # create new directory
             amp_dir.create_directory(path + '/' + dir_name)
             return dir_name
 
     def create_new_diretory(self, path, dir_name):
-        ''' Text
+        ''' Method to create a processed item directory
+            for the processed items - such as thumbnails.
+
+            This method is intended to be used programatically.
+
+            The new directory is created from the create_directory 
+            method from the AMP_Media_Converter_File_Manager class.
+
+            Args:
+                path (string) - directory path
+                dir_name (string) - name of the new directory
+
         '''
 
         amp_dir = AMP_Media_Converter_File_Manager()
