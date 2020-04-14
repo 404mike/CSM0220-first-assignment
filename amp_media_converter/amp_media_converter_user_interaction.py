@@ -71,9 +71,7 @@ class AMP_Media_Converter_User_Interaction:
             expression, to make sure that the name is vaild?
             
             The validation checks to see if the string is alphanumeric 
-            and/or contains: 
-                dash: -
-                underscore: _ 
+            and/or an underscore _
 
             Returns:
                 string - new directory name
@@ -81,7 +79,7 @@ class AMP_Media_Converter_User_Interaction:
 
         while True:
             try:
-                new_dir_name = input ("Enter a new directory name ").strip()
+                new_dir_name = input ("Enter a new directory name: ").strip()
                 if re.match(r'^[A-Za-z0-9_]+$', new_dir_name):
                     return new_dir_name
                 else:
