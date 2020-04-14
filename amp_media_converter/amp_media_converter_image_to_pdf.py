@@ -1,6 +1,7 @@
 from PIL import Image
 from amp_media_converter import AMP_Media_Converter_Interface
 from amp_media_converter import AMP_Media
+import re
 
 class AMP_Media_Converter_Image_To_PDF(AMP_Media_Converter_Interface):
     ''' Class to convert images using the Pillow library
@@ -134,10 +135,7 @@ class AMP_Media_Converter_Image_To_PDF(AMP_Media_Converter_Interface):
     def process_files(self, path, files):
         ''' Method to begin the image conversion
 
-            The method will prompt a user for a thumbnail size
-            only a single number is required as convert_image method
-            will convert the image by its longest path maintaining
-            its aspect ratio
+            The method will prompt a user for a filename for the pdf.
 
             The method will check that the location the thumbnails
             already exists. The default directory name is in the constructor
@@ -154,17 +152,20 @@ class AMP_Media_Converter_Image_To_PDF(AMP_Media_Converter_Interface):
         # get user thumbnail size
         while True:
             try:
-                thumb_size =  input("Enter name of the PDF you want to save: ")
-                break
+                pdf_file_name = input ("Enter a filename for the PDF: ").strip()
+                if re.match(r'^[A-Za-z0-9_]+$', pdf_file_name):
+                    break
+                else:
+                    print("Not a valid file name")
             except ValueError:
-                print ("Not a number, try again") 
+                print ("Not a valid file name")
                  
         # check thumbnail directory exists
         amp_media = AMP_Media()
         dir_name = amp_media.create_processed_items_directory(path, self.thumb_dir)
 
         # loop each file and send it to convert_image to be processed
-        self.convert_image_to_pdf(files, path, dir_name, thumb_size)
+        self.convert_image_to_pdf(files, path, dir_name, pdf_file_name)
 
     def convert_image_to_pdf(self, files, path, dir_name, pdf_file_name):
         ''' Method to convert a list of imges to PDF
