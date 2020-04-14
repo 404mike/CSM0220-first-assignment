@@ -43,7 +43,7 @@ class AMP_Media:
         if not path:
             user_interact = AMP_Media_Converter_User_Interaction()
             # get user input for directory
-            path = user_interact.get_dir_path(file_extensions)
+            path = user_interact.get_dir_path()
 
         # validate directory path
         valid_dir = self.validate_dir_path(path)
