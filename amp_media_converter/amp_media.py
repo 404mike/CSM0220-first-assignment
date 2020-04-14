@@ -218,7 +218,47 @@ class AMP_Media:
                 path (string) - directory path
                 dir_name (string) - name of the new directory
 
+            Returns:
+                boolean
         '''
 
         amp_dir = AMP_Media_Converter_File_Manager()
-        amp_dir.create_directory(path + '/' + dir_name)
+        return amp_dir.create_directory(path + '/' + dir_name)
+
+
+    def move_file(self, path, destination):
+        ''' Method to move a file
+
+            The method accepts two parameters
+            the current location of the file
+            and the destination of where you 
+            want to move the file to?
+
+            This method calls move_file from
+            the AMP_Media_Converter_File_Manager class
+
+            Args:
+                path - path of the file
+                desination - the location where the file is to be moved to
+
+            Returns:
+                boolean
+        '''
+
+        amp_dir = AMP_Media_Converter_File_Manager()
+        return amp_dir.move_file(path, destination)
+
+    def delete_file(self, path):
+        ''' Method to delete a file
+
+            This method accepts one parameter,
+            the path to the file you want to delete.
+
+            Args:
+                path - path to file
+
+            Returns:
+                boolean
+        '''
+        amp_dir = AMP_Media_Converter_File_Manager()
+        return amp_dir.delete_file(path)       

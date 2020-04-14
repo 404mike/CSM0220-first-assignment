@@ -60,9 +60,9 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
             Although the convert method can accept multiple
             file extensions, this method is intended to be
             used as clear indication that the intention of the 
-            method is to accept multiple file extensions
+            method is to accept multiple file extensions.
 
-            The method calls the convert method
+            The method calls the convert method.
 
             Args:
                 file_extensions (list): List of file types to convert
@@ -76,29 +76,66 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
         # call convert method with list of file extensions
         self.convert(file_extensions)
 
-    def write_file(self):
+    def write_file(self, file, path):
         ''' TEXT
         '''
 
         pass
 
-    def delete_file(self):
-        ''' TEXT
+    def delete_file(self, path):
+        ''' Method to delete a file
+
+            This method accepts one parameter,
+            the path to the file you want to delete.
+
+            Args:
+                path - path to file
+
+            Returns:
+                boolean
         '''
 
-        pass
+        amp_media = AMP_Media()
+        return amp_media.delete_file(path)
 
-    def move_file(self):
-        ''' TEXT
+    def move_file(self, path, destination):
+        ''' Method to move a file
+
+            The method accepts two parameters
+            the current location of the file
+            and the destination of where you 
+            want to move the file to?
+
+            This method calls move_file from
+            the AMP_Media class
+
+            Args:
+                path - path of the file
+                desination - the location where the file is to be moved to
+
+            Returns:
+                boolean
         '''
 
-        pass
+        amp_media = AMP_Media()
+        return amp_media.move_file(path, destination)
 
-    def create_directory(self):
-        ''' TEXT
+    def create_directory(self, path, dir_name):
+        ''' Method to create a new directory
+
+            This method is intended to be used programatically
+            
+            Args:
+                path (string) - directory path
+                dir_name (string) - new directory name
+
+            Resturns:
+                boolean
         '''
 
-        pass
+        amp_media = AMP_Media()
+        response = amp_media.create_new_diretory(path, dir_name)
+        return response
 
     def process_files(self, path, files):
         ''' Method to begin the image conversion

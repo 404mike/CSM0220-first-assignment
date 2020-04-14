@@ -43,6 +43,7 @@ class AMP_Media_Converter_Interface:
 
     def create_directory(self):
         ''' Method to allow a user to create a directory
+            This method is intended to be used programatically
         '''
 
         raise NotImplementedError("Subclass must implement this abstract method")

@@ -111,17 +111,60 @@ class AMP_Media_Converter_File_Manager:
 
             Args:
                 path (string) - directory path
+
+            Returns:
+                boolean
         '''
 
         try:
             os.mkdir(path)
         except OSError:
             print ("Creation of the directory %s failed" % path)
+            return False
         else:
             print ("Successfully created the directory %s " % path)
+            return True
 
     def delete_file(self, path):
-        ''' Text
+        ''' Method to delete a file
+
+            This method accepts one parameter,
+            the path to the file you want to delete.
+
+            Args:
+                path - path to file
+
+            Returns:
+                boolean
         '''
         
-        pass
+        try:
+            os.remove(path)
+            return True
+        except (OSError, IOError):
+            print("Error moving the file")
+            print("Couldn't delete {}".format(path))
+
+    def move_file(self, path, destination):
+        ''' Method to move a file
+
+            The method accepts two parameters
+            the current location of the file
+            and the destination of where you 
+            want to move the file to?
+
+            Args:
+                path - path of the file
+                desination - the location where the file is to be moved to
+
+            Returns:
+                boolean
+        '''
+
+        try:
+            os.rename(path, destination)
+            return True
+        except (OSError, IOError):
+            print("Error moving the file")
+            print("Couldn't move {} to {}".format(path, destination))
+        
