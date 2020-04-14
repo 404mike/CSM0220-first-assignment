@@ -3,13 +3,43 @@ from amp_media_converter import AMP_Media_Converter_File_Manager
 import re
 
 class AMP_Media:
-    ''' Text
+    ''' Class Interface for Media Converter classes
+
+        This class is intended to be an interfce to the 
+        AMP_Media_Converter_User_Interaction and 
+        AMP_Media_Converter_File_Manager classes
+        and should be imported by classes such as
+        Image converter and Docuemnt converters which 
+        can use the following methods:
+
+        get_dir_path
+        validate_dir_path
+        check_fies_exist
+        list_sub_dir
+        create_thumbnail_directory
+        create_new_diretory
+
     '''
     
-    def get_dir_path(self,file_extensions,path =''):
-        ''' Text
+    def get_dir_path(self,file_extensions, path =''):
+        ''' Method to prompt a user for a directory path
+
+            This method will call the get_dir_path in 
+            the AMP_Media_Converter_User_Interaction class
+            which will prompt a user for a directory path
+            and validate the input.
+            It will then call validate_dir_path to check
+            if the path submitted exists on disk.
+            
+            If the path is valid, it will call the
+            check_fies_exist to check if there are 
+            files in that directory
+
+            Args:
+                path (string) - path to directory
         '''
         
+        # check if no path has been given
         if not path:
             user_interact = AMP_Media_Converter_User_Interaction()
             # get user input for directory
@@ -23,11 +53,20 @@ class AMP_Media:
         else:
             print("{} doesn't exist, try again".format(path))
             self.get_dir_path(file_extensions)  
-        # return [True,foo]
-
 
     def validate_dir_path(self, path):
-        ''' Text
+        ''' Method to validate if the directory path
+            given exists on disk
+
+            This method will use the validate_path
+            from the AMP_Media_Converter_File_Manager class
+            to check if the directory path is valid
+
+            Args:
+                path (string) - directory path
+            
+            Returns:
+                boolean
         '''
 
         amp_dir = AMP_Media_Converter_File_Manager()
@@ -39,7 +78,30 @@ class AMP_Media:
             return False
 
     def check_fies_exist(self, path, file_extensions):
-        ''' Text
+        ''' Method to check if there are files with the 
+            file extentension in the directory path
+
+            The method will use the list_directory_media
+            from the AMP_Media_Converter_File_Manager class,
+            the list_directory_media method will search for 
+            files matching the file extensions in the directory
+            path.
+
+            if the response from list_directory_media, assigned to
+            the file_names variable, is empty (ie no files found)
+            call the list_sub_dir method which will return any sub directories
+            to one level for the directory, this will prompt the
+            user to chose one of these directories, which will start the 
+            search for files again.
+            However, if files are found we can return a list back to the 
+            calling method.           
+
+            Args:
+                path (string) - directory path
+                file_extensions (list) - a list of file extensions to search ['jpg','png']
+
+            Returns:
+                list - [boolean, list of file names]
         '''
 
         amp_dir = AMP_Media_Converter_File_Manager()
@@ -51,8 +113,12 @@ class AMP_Media:
         else:
             return self.list_sub_dir(path,file_extensions)
 
-    def list_sub_dir(self,path,file_extensions):
-        ''' Text
+    def list_sub_dir(self, path, file_extensions):
+        ''' Method to list sub directories in a given directory
+
+            Args:
+                path (string) - directory path
+
         '''
 
         amp_dir = AMP_Media_Converter_File_Manager()  
@@ -72,7 +138,7 @@ class AMP_Media:
         # return new_path
         return self.get_dir_path(file_extensions, new_path)
 
-    def create_new_directory(self,path, dir_name):
+    def create_thumbnail_directory(self, path, dir_name):
         ''' Text
         '''
 
@@ -90,3 +156,10 @@ class AMP_Media:
         else:
             amp_dir.create_directory(path + '/' + dir_name)
             return dir_name
+
+    def create_new_diretory(self, path, dir_name):
+        ''' Text
+        '''
+
+        amp_dir = AMP_Media_Converter_File_Manager()
+        amp_dir.create_directory(path + '/' + dir_name)

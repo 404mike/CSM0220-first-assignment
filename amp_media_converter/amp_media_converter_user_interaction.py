@@ -31,6 +31,9 @@ class AMP_Media_Converter_User_Interaction:
                 print ("Not a number, try again")  
 
     def get_new_directory_name(self):
+        ''' Text
+        '''
+        
         while True:
             try:
                 new_dir_name = input ("Enter a new directory name ").strip()
