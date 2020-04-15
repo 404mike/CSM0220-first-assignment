@@ -98,3 +98,6 @@ To run unit test.
   ```
     python -m unittest -b
   ```
+
+## Test images
+The images used in this package are royalty free images from [https://www.pexels.com/search/dog/](https://www.pexels.com/search/dog/)
