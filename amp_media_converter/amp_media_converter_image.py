@@ -182,6 +182,7 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
         '''
 
         print("Converting {}".format(f))
+        print(path + '/' + dir_name + '/' + f)
         try:
             # open image to convert
             img = Image.open(path + '/' + f)
