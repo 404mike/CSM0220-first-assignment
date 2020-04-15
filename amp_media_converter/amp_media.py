@@ -145,6 +145,10 @@ class AMP_Media:
         # ask user to choose from the list of directories
         chosen_sub_dir = user_interact.get_user_sub_directory_choice(sub_dir_list)
 
+        # if the user chooses to start again
+        if chosen_sub_dir == '*** Search Again ***':
+            return self.get_dir_path(file_extensions, '')
+
         # format the path with a slash
         if(path.endswith('/')):
             new_path = path + chosen_sub_dir
