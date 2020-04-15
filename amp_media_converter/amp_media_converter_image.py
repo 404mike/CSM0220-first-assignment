@@ -163,6 +163,8 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
         amp_media = AMP_Media()
         dir_name = amp_media.create_processed_items_directory(path, self.thumb_dir)
 
+        dir_name = path + '/' +dir_name
+
         # loop each file and send it to convert_image to be processed
         for f in files:
             self.convert_image(f, path, dir_name, thumb_size)
@@ -182,7 +184,7 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
         '''
 
         print("Converting {}".format(f))
-        print(path + '/' + dir_name + '/' + f)
+        # print(path + '/' + dir_name + '/' + f)
         try:
             # open image to convert
             img = Image.open(path + '/' + f)
@@ -199,6 +201,6 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
             img = img.resize((new_width,new_height), Image.ANTIALIAS)
 
             # save thumbnail
-            img.save(path + '/' + dir_name + '/' + f) 
+            img.save(dir_name + '/' + f) 
         except IOError:
             print("Unable to save file")

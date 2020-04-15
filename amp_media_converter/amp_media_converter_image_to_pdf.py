@@ -164,6 +164,8 @@ class AMP_Media_Converter_Image_To_PDF(AMP_Media_Converter_Interface):
         amp_media = AMP_Media()
         dir_name = amp_media.create_processed_items_directory(path, self.thumb_dir)
 
+        dir_name = path + '/' +dir_name
+        
         # loop each file and send it to convert_image to be processed
         self.convert_image_to_pdf(files, path, dir_name, pdf_file_name)
 
