@@ -7,6 +7,11 @@ from PIL import Image
 
 class Test_AMP_Media_Converter_Image(unittest.TestCase):
 
+
+  def __init__(self, *args, **kwargs):
+    super(Test_AMP_Media_Converter_Image, self).__init__(*args, **kwargs)
+    self.amp_image = AMP_Media_Converter_Image()
+
   def setUp(self):
     ''' Create new thumbnail directory'''
 
@@ -50,7 +55,8 @@ class Test_AMP_Media_Converter_Image(unittest.TestCase):
 
     dir_path = os.path.dirname(os.path.realpath(__file__))
     images_dir_path = dir_path + '/files/images/'
-    thumbnail_dir_path = 'thumbnails'
+    thumbnail_dir = 'thumbnails'
+    thumbnail_dir_path = images_dir_path + thumbnail_dir
 
     # list of images to convert
     images_list = ['adorable-animal-breed-canine-374906.jpg',
@@ -60,15 +66,13 @@ class Test_AMP_Media_Converter_Image(unittest.TestCase):
                    'animal-dog-puppy-pug-59523.jpg',
                    'grayscale-photo-of-french-mastiff-close-up-photo-1435517.png']
 
-    amp_image = AMP_Media_Converter_Image()
-
     # create the thumbnails
     for image in images_list:
-      amp_image.convert_image(image, images_dir_path, thumbnail_dir_path, 200)
+      self.amp_image.convert_image(image, images_dir_path, thumbnail_dir_path, 200)
 
     # test the thumbnails have been created
     for image in images_list:
-      new_dir_path = images_dir_path + thumbnail_dir_path + '/' + image
+      new_dir_path = images_dir_path + thumbnail_dir + '/' + image
       self.assertTrue(os.path.exists(new_dir_path))
 
   def test_converted_images_dimensions(self):
@@ -85,6 +89,7 @@ class Test_AMP_Media_Converter_Image(unittest.TestCase):
     dir_path = os.path.dirname(os.path.realpath(__file__))
     images_dir_path = dir_path + '/files/images/'
     thumbnail_dir_path = 'thumbnails'
+    # thumbnail_dir_path = images_dir_path + thumbnail_dir_dir
 
     images_dict_dimensions = {
       'adorable-animal-breed-canine-374906.jpg' : {'width':200, 'height':115 },

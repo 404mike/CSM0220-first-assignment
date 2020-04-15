@@ -4,6 +4,10 @@ from amp_media_converter import AMP_Media_Converter_User_Interaction
 
 class Test_AMP_Media_Converter_User_Interaction(unittest.TestCase):
 
+  def __init__(self, *args, **kwargs):
+    super(Test_AMP_Media_Converter_User_Interaction, self).__init__(*args, **kwargs)
+    self.amp_interact = AMP_Media_Converter_User_Interaction()
+
     @patch('builtins.input', lambda *args: '/var/foo')
     def test_get_dir_path(self):
         ''' Test user input 
@@ -12,10 +16,9 @@ class Test_AMP_Media_Converter_User_Interaction(unittest.TestCase):
             returned by the function
         '''
 
-        interaction = AMP_Media_Converter_User_Interaction()
         expected_response = '/var/foo'
              
-        response = interaction.get_dir_path()
+        response = self.amp_interact.get_dir_path()
         self.assertEqual(response, expected_response)
 
     @patch('builtins.input', lambda *args: 1)
@@ -30,8 +33,7 @@ class Test_AMP_Media_Converter_User_Interaction(unittest.TestCase):
       '''
 
       sub_dir_list = ['one','two','three']
-      interaction = AMP_Media_Converter_User_Interaction()
-      response = interaction.get_user_sub_directory_choice(sub_dir_list)
+      response = self.amp_interact.get_user_sub_directory_choice(sub_dir_list)
       expected_response = 'two'
       self.assertEqual(response, expected_response)
 
@@ -68,8 +70,7 @@ class Test_AMP_Media_Converter_User_Interaction(unittest.TestCase):
           a directory name is valid
       '''
 
-      interaction = AMP_Media_Converter_User_Interaction()
-      response = interaction.get_new_directory_name()
+      response = self.amp_interact.get_new_directory_name()
       expected_response = "new_test_dir"
       self.assertEqual(response, expected_response)
       

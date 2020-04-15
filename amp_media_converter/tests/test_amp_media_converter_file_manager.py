@@ -5,6 +5,10 @@ from amp_media_converter import AMP_Media_Converter_File_Manager
 
 class Test_AMP_Media_Converter_File_Manager(unittest.TestCase):
 
+  def __init__(self, *args, **kwargs):
+    super(Test_AMP_Media_Converter_File_Manager, self).__init__(*args, **kwargs)
+    self.amp_dir = AMP_Media_Converter_File_Manager()
+
   def setup(self):
     pass
   
@@ -32,9 +36,7 @@ class Test_AMP_Media_Converter_File_Manager(unittest.TestCase):
 
     path = self.get_current_dir()
 
-    amp_dir = AMP_Media_Converter_File_Manager()
-
-    is_dir = amp_dir.validate_path(path)
+    is_dir = self.amp_dir.validate_path(path)
     
     self.assertTrue(is_dir)
 
@@ -50,9 +52,7 @@ class Test_AMP_Media_Converter_File_Manager(unittest.TestCase):
 
     path = path + '/no_dir_here'
 
-    amp_dir = AMP_Media_Converter_File_Manager()
-
-    is_dir = amp_dir.validate_path(path)
+    is_dir = self.amp_dir.validate_path(path)
     
     self.assertFalse(is_dir)
 
@@ -68,11 +68,9 @@ class Test_AMP_Media_Converter_File_Manager(unittest.TestCase):
 
     path = self.get_current_dir() + '/files/images'
 
-    amp_dir = AMP_Media_Converter_File_Manager()
-
     file_extensions = ['jpg']
 
-    response = amp_dir.list_directory_media(path,file_extensions)
+    response = self.amp_dir.list_directory_media(path,file_extensions)
 
     expected_list = ['animal-dog-puppy-pug-59523.jpg', 'adorable-animal-breed-canine-374906.jpg', 'close-up-of-dog-yawning-248307.jpg', 'animal-dog-pet-cute-2007.jpg', 'adult-tan-and-white-french-bulldog-545063.jpg', 'english-cocker-spaniel-puppy-sitting-on-ground-beside-grass-1254140.jpg', 'close-up-photography-of-fawn-pug-covered-with-brown-cloth-374898.jpg']
 
@@ -90,11 +88,9 @@ class Test_AMP_Media_Converter_File_Manager(unittest.TestCase):
 
     path = self.get_current_dir() + '/files/images'
 
-    amp_dir = AMP_Media_Converter_File_Manager()
-
     file_extensions = ['jpg','png']
 
-    response = amp_dir.list_directory_media(path,file_extensions)
+    response = self.amp_dir.list_directory_media(path,file_extensions)
 
     expected_list = ['grayscale-photo-of-french-mastiff-close-up-photo-1435517.png', 'adorable-blur-breed-close-up-406014.png', 'black-and-brown-rottweiler-puppy-1307630.png', 'animal-dog-puppy-pug-59523.jpg', 'adorable-animal-breed-canine-374906.jpg', 'close-up-of-dog-yawning-248307.jpg', 'animal-dog-pet-cute-2007.jpg', 'adult-tan-and-white-french-bulldog-545063.jpg', 'adult-black-pug-1851164.png', 'english-cocker-spaniel-puppy-sitting-on-ground-beside-grass-1254140.jpg', 'close-up-photography-of-fawn-pug-covered-with-brown-cloth-374898.jpg']
 
@@ -115,9 +111,7 @@ class Test_AMP_Media_Converter_File_Manager(unittest.TestCase):
 
     path = self.get_current_dir() + '/files/empty_images_dir'
 
-    amp_dir = AMP_Media_Converter_File_Manager()
-
-    response = amp_dir.list_sub_directory_contents(path)
+    response = self.amp_dir.list_sub_directory_contents(path)
 
     expected_list = ['*** Search Again ***', 'images', 'empty_dir_two', 'empty_dir_one']
 
@@ -134,9 +128,7 @@ class Test_AMP_Media_Converter_File_Manager(unittest.TestCase):
     '''
     path = self.get_current_dir() + '/files/empty_images_dir'
 
-    amp_dir = AMP_Media_Converter_File_Manager()
-
-    response = amp_dir.listdirs(path)
+    response = self.amp_dir.listdirs(path)
     
     expected_list = ['images', 'empty_dir_two', 'empty_dir_one']
 
@@ -154,11 +146,9 @@ class Test_AMP_Media_Converter_File_Manager(unittest.TestCase):
 
     path = self.get_current_dir() + '/files/images'
 
-    amp_dir = AMP_Media_Converter_File_Manager()
-
     file_extensions = ['jpg']
 
-    response = amp_dir.search_file_types(path,file_extensions)
+    response = self.amp_dir.search_file_types(path,file_extensions)
 
     expected_list = ['animal-dog-puppy-pug-59523.jpg', 'adorable-animal-breed-canine-374906.jpg', 'close-up-of-dog-yawning-248307.jpg', 'animal-dog-pet-cute-2007.jpg', 'adult-tan-and-white-french-bulldog-545063.jpg', 'english-cocker-spaniel-puppy-sitting-on-ground-beside-grass-1254140.jpg', 'close-up-photography-of-fawn-pug-covered-with-brown-cloth-374898.jpg']
 
@@ -178,18 +168,15 @@ class Test_AMP_Media_Converter_File_Manager(unittest.TestCase):
 
     path = self.get_current_dir() + '/files/empty_images_dir'
 
-    amp_dir = AMP_Media_Converter_File_Manager()
-
     new_dir_path = path + '/test_dir'
 
-    amp_dir.create_directory(new_dir_path)
+    self.amp_dir.create_directory(new_dir_path)
 
     self.assertTrue(os.path.exists(new_dir_path))
 
     # delete created directory
     os.rmdir(new_dir_path)
     
-
   def test_delete_file(self):
     ''' Test deleting a file
 
@@ -222,9 +209,7 @@ class Test_AMP_Media_Converter_File_Manager(unittest.TestCase):
     self.assertTrue(file_exists)
 
     # delete file
-    amp_dir = AMP_Media_Converter_File_Manager()
-
-    amp_dir.delete_file(testFile)
+    self.amp_dir.delete_file(testFile)
 
     # check to make sure the file has been removed
     file_exists = os.path.isfile(testFile)
@@ -252,10 +237,8 @@ class Test_AMP_Media_Converter_File_Manager(unittest.TestCase):
     file1 = path + 'empty_dir_one/temp.amp'
     file2 = path + 'empty_dir_two/temp.amp'
 
-    amp_dir = AMP_Media_Converter_File_Manager()
-
     # move file from location 1 to location 2
-    amp_dir.move_file(file1,file2)
+    self.amp_dir.move_file(file1,file2)
 
     file1_exists = os.path.isfile(file1)
     file2_exists = os.path.isfile(file2)
@@ -265,7 +248,7 @@ class Test_AMP_Media_Converter_File_Manager(unittest.TestCase):
     self.assertTrue(file2_exists)
 
     # move file from location 2 to location 1
-    amp_dir.move_file(file2,file1)
+    self.amp_dir.move_file(file2,file1)
 
     file1_exists = os.path.isfile(file1)
     file2_exists = os.path.isfile(file2)
@@ -273,7 +256,6 @@ class Test_AMP_Media_Converter_File_Manager(unittest.TestCase):
     self.assertTrue(file1_exists)
 
     self.assertFalse(file2_exists)
-
 
 if __name__ == '__main__':
     unittest.main()

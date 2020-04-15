@@ -13,6 +13,8 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
         # default directory name for
         # thumbnails are save to
         self.thumb_dir = 'thumbnails'
+        
+        self.amp = AMP_Media()
 
     def convert(self, file_extensions=['jpg']):
         ''' Method to start converting images
@@ -50,8 +52,7 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
                       files - a list of files in that path directory
         '''
 
-        amp = AMP_Media()
-        dir_files = amp.get_dir_path(file_extensions)
+        dir_files = self.amp.get_dir_path(file_extensions)
         return dir_files 
 
     def convert_multi_type(self, file_extensions=''):
@@ -89,8 +90,7 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
                 boolean
         '''
 
-        amp_media = AMP_Media()
-        return amp_media.delete_file(path)
+        return self.amp.delete_file(path)
 
     def move_file(self, path, destination):
         ''' Method to move a file
@@ -111,8 +111,7 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
                 boolean
         '''
 
-        amp_media = AMP_Media()
-        return amp_media.move_file(path, destination)
+        return self.amp.move_file(path, destination)
 
     def create_directory(self, path, dir_name):
         ''' Method to create a new directory
@@ -127,8 +126,7 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
                 boolean
         '''
 
-        amp_media = AMP_Media()
-        response = amp_media.create_new_diretory(path, dir_name)
+        response = self.amp.create_new_diretory(path, dir_name)
         return response
 
     def process_files(self, path, files):
@@ -160,8 +158,7 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
                 print ("Not a number, try again") 
                  
         # check thumbnail directory exists
-        amp_media = AMP_Media()
-        dir_name = amp_media.create_processed_items_directory(path, self.thumb_dir)
+        dir_name = self.amp.create_processed_items_directory(path, self.thumb_dir)
 
         dir_name = path + '/' +dir_name
 

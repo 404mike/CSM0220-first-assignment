@@ -20,6 +20,10 @@ class AMP_Media:
         create_new_diretory
 
     '''
+
+    def __init__(self):
+        self.amp_interact = AMP_Media_Converter_User_Interaction()
+        self.amp_dir = AMP_Media_Converter_File_Manager()
     
     def get_dir_path(self,file_extensions, path =''):
         ''' Method to prompt a user for a directory path
@@ -41,9 +45,8 @@ class AMP_Media:
         
         # check if no path has been given
         if not path:
-            user_interact = AMP_Media_Converter_User_Interaction()
             # get user input for directory
-            path = user_interact.get_dir_path()
+            path = self.amp_interact.get_dir_path()
 
         # validate directory path
         valid_dir = self.validate_dir_path(path)
@@ -69,8 +72,7 @@ class AMP_Media:
                 boolean
         '''
 
-        amp_dir = AMP_Media_Converter_File_Manager()
-        is_valid_dir = amp_dir.validate_path(path)
+        is_valid_dir = self.amp_dir.validate_path(path)
 
         if is_valid_dir:
             return True
@@ -104,8 +106,7 @@ class AMP_Media:
                 list - [boolean, list of file names]
         '''
 
-        amp_dir = AMP_Media_Converter_File_Manager()
-        file_names = amp_dir.list_directory_media(path, file_extensions)
+        file_names = self.amp_dir.list_directory_media(path, file_extensions)
         
         # if list is not empty
         if file_names:
@@ -135,15 +136,12 @@ class AMP_Media:
                 path (string) - directory path
 
         '''
-
-        amp_dir = AMP_Media_Converter_File_Manager()  
-        user_interact = AMP_Media_Converter_User_Interaction()
         
         # get a list of sub directories
-        sub_dir_list = amp_dir.list_sub_directory_contents(path)
+        sub_dir_list = self.amp_dir.list_sub_directory_contents(path)
 
         # ask user to choose from the list of directories
-        chosen_sub_dir = user_interact.get_user_sub_directory_choice(sub_dir_list)
+        chosen_sub_dir = self.amp_interact.get_user_sub_directory_choice(sub_dir_list)
 
         # if the user chooses to start again
         if chosen_sub_dir == '*** Search Again ***':
@@ -189,8 +187,6 @@ class AMP_Media:
                 string - new processed items directory name
         '''
 
-        amp_dir = AMP_Media_Converter_File_Manager()
-
         # check if directory already exists
         is_valid_dir = self.validate_dir_path(path + '/' + dir_name)
 
@@ -199,14 +195,14 @@ class AMP_Media:
             print("{} directory already exists, create a new directory".format(dir_name))
             
             # get user input
-            user_interact = AMP_Media_Converter_User_Interaction()
-            new_dir_name = user_interact.get_new_directory_name()
+            new_dir_name = self.amp_interact.get_new_directory_name()
+
             # create new directory
-            amp_dir.create_directory(path + '/' + new_dir_name)
+            self.amp_dir.create_directory(path + '/' + new_dir_name)
             return new_dir_name
         else:
             # create new directory
-            amp_dir.create_directory(path + '/' + dir_name)
+            self.amp_dir.create_directory(path + '/' + dir_name)
             return dir_name
 
     def create_new_diretory(self, path, dir_name):
@@ -226,8 +222,7 @@ class AMP_Media:
                 boolean
         '''
 
-        amp_dir = AMP_Media_Converter_File_Manager()
-        return amp_dir.create_directory(path + '/' + dir_name)
+        return self.amp_dir.create_directory(path + '/' + dir_name)
 
 
     def move_file(self, path, destination):
@@ -249,8 +244,7 @@ class AMP_Media:
                 boolean
         '''
 
-        amp_dir = AMP_Media_Converter_File_Manager()
-        return amp_dir.move_file(path, destination)
+        return self.amp_dir.move_file(path, destination)
 
     def delete_file(self, path):
         ''' Method to delete a file
@@ -264,5 +258,5 @@ class AMP_Media:
             Returns:
                 boolean
         '''
-        amp_dir = AMP_Media_Converter_File_Manager()
-        return amp_dir.delete_file(path)       
+
+        return self.amp_dir.delete_file(path)       
