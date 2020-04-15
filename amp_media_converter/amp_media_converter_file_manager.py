@@ -79,7 +79,6 @@ class AMP_Media_Converter_File_Manager:
 
         return sub_dir_list
 
-
     def listdirs(self, path):
         ''' Method to return a list of sub directories
             in the given file path.

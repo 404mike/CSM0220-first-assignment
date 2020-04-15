@@ -1,4 +1,5 @@
 .DS_Store
 amp_media_converter/.DS_Store
 amp_media_converter/__pycache__/
+amp_media_converter/tests/__pycache__/
 amp_media_converter/tests/files/images/thumbnails/
