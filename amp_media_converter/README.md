@@ -1,7 +1,16 @@
 # AMP Media Converter
 
 ## Description
-Test
+The AMP (Advanced Media Production) package allows users to:
+* Convert images of different types to thumbnail
+* Create directories
+* Move files
+* Delete files
+
+The package can be used independently, users will be guided through the
+process of converting images, or the package can be used programatical,
+where you will be able to used the package methods to implement your 
+own solutions.
 
 ## Example usage
 
@@ -35,6 +44,9 @@ To convert more than one image format, specify a list of image extensions.
   ```
 
 ### Programatical 
+
+You can also implement your own Python script to create, delete, move directories
+and convert images.
 
   ```python
       from amp_media_converter import AMP_Media_Converter_Image, AMP_Media_Converter_File_Manager, AMP_Media_Converter_Image_To_PDF
@@ -81,5 +93,7 @@ To convert more than one image format, specify a list of image extensions.
 
 ## unit testing
 
-To run unit test 
-```python -m unittest -b```
+To run unit test.
+  ```
+    python -m unittest -b
+  ```
