@@ -186,9 +186,18 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
         try:
             # open image to convert
             img = Image.open(path + '/' + f)
-            wpercent = (thumb_size/float(img.size[0]))
-            hsize = int((float(img.size[1])*float(wpercent)))
-            img = img.resize((thumb_size,hsize), Image.ANTIALIAS)
+            (w,h) = img.size
+
+            # deal with landscape vs potrait 
+            if w > h:
+                new_width  = thumb_size
+                new_height = int(new_width * h / w)
+            else:
+                new_height = thumb_size
+                new_width  = int(new_height * w / h)
+
+            img = img.resize((new_width,new_height), Image.ANTIALIAS)
+
             # save thumbnail
             img.save(path + '/' + dir_name + '/' + f) 
         except IOError:

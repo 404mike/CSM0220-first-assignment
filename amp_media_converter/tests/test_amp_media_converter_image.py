@@ -8,6 +8,8 @@ from PIL import Image
 class Test_AMP_Media_Converter_Image(unittest.TestCase):
 
   def setUp(self):
+    ''' Create new thumbnail directory'''
+
     dir_path = os.path.dirname(os.path.realpath(__file__))
     thumbnail_dir_path = dir_path + '/files/images/thumbnails'
 
@@ -22,7 +24,8 @@ class Test_AMP_Media_Converter_Image(unittest.TestCase):
     pass
   
   def tearDownDir(self):
-    print("finished")
+    ''' Remove thumbnail directory'''
+
     dir_path = os.path.dirname(os.path.realpath(__file__))
     images_dir_path = dir_path + '/files/images/'
     thumbnail_dir_path = 'thumbnails'
@@ -35,7 +38,14 @@ class Test_AMP_Media_Converter_Image(unittest.TestCase):
         print("Error: %s : %s" % (dir_path_remove, e.strerror))
 
   def test_convert_image(self):
-    '''
+    ''' Test to convert imgaes to thumbnails
+
+        The test will loop through and create a thumbnail
+        for each of the images in the imges_list list.
+        The thumbnail will be save in the thumbnails directory.
+
+        The test will then check the thumbnails directory
+        to see if the image has been created?
     '''
 
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -62,7 +72,14 @@ class Test_AMP_Media_Converter_Image(unittest.TestCase):
       self.assertTrue(os.path.exists(new_dir_path))
 
   def test_converted_images_dimensions(self):
-    '''
+    ''' Test to see if the image dimensions 
+        for the thumnails are correct
+
+        The test will loop through all the images
+        in the images_dict_dimensions dictionary
+        and using Pillow, get the width and height
+        of the thumbnail and compare the values,
+        to make sure the size of the thumbnail is correct?
     '''
 
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -74,10 +91,10 @@ class Test_AMP_Media_Converter_Image(unittest.TestCase):
       'close-up-of-dog-yawning-248307.jpg' : { 'width':200, 'height':133},
       'adult-tan-and-white-french-bulldog-545063.jpg' : {'width':200, 'height':133},
       'close-up-photography-of-fawn-pug-covered-with-brown-cloth-374898.jpg' : {'width':200, 'height':133},
-      'animal-dog-pet-cute-2007.jpg' : {'width':200, 'height':300},
+      'animal-dog-pet-cute-2007.jpg' : {'width':133, 'height':200},
       'english-cocker-spaniel-puppy-sitting-on-ground-beside-grass-1254140.jpg' : {'width':200, 'height':133},
       'animal-dog-puppy-pug-59523.jpg' : {'width':200, 'height':130},
-      'grayscale-photo-of-french-mastiff-close-up-photo-1435517.png': {'width':233,'height':234}
+      'grayscale-photo-of-french-mastiff-close-up-photo-1435517.png': {'width':133,'height':200}
     }
 
     # test image file dimensions
@@ -88,9 +105,10 @@ class Test_AMP_Media_Converter_Image(unittest.TestCase):
       im = Image.open(images_dir_path + thumbnail_dir_path + '/' + image)
       w, h = im.size
       # print("{} - {} - {}".format(image,w,h))
-      self.assertTrue(expected_width, w)
-      self.assertTrue(expected_height, h)
+      self.assertEqual(expected_width, w)
+      self.assertEqual(expected_height, h)
 
+    # Delete directory
     self.tearDownDir()
 
 
