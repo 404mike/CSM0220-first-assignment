@@ -40,6 +40,7 @@ To convert more than one image format, specify a list of image extensions.
 
   ```python
     from amp_media_converter import AMP_Media_Converter_Image
+    amp = AMP_Media_Converter_Image()
     amp.convert(['jpg','png'])
   ```
 
