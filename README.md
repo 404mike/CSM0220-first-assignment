@@ -1,6 +1,4 @@
 # CSM0220-first-assignment
 CSM0220-first-assignment
 
-
-## Image from
-https://www.pexels.com/search/dog/
+See [amp_media_converter/README.md](amp_media_converter/README.md) for more details
