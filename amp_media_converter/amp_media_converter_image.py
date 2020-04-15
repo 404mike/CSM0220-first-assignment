@@ -178,7 +178,7 @@ class AMP_Media_Converter_Image(AMP_Media_Converter_Interface):
 
             Args:
                 f (string) - file name
-                path (string) - directory path
+                path (string) - directory path for images
                 dir_name (string) - directory to store thumbnails
                 thumb_size (int) - thumbnail size
         '''

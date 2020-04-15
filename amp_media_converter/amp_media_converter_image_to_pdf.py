@@ -164,8 +164,8 @@ class AMP_Media_Converter_Image_To_PDF(AMP_Media_Converter_Interface):
         amp_media = AMP_Media()
         dir_name = amp_media.create_processed_items_directory(path, self.thumb_dir)
 
-        dir_name = path + '/' +dir_name
-        
+        dir_name = path + '/' + dir_name
+
         # loop each file and send it to convert_image to be processed
         self.convert_image_to_pdf(files, path, dir_name, pdf_file_name)
 
@@ -177,7 +177,7 @@ class AMP_Media_Converter_Image_To_PDF(AMP_Media_Converter_Interface):
 
             Args:
                 files (list) - list of images
-                path (string) - directory path
+                path (string) - directory path for images
                 dir_name (string) - directory to save PDF
                 pdf_file_name (string) - name of PDF file
         '''
@@ -196,7 +196,7 @@ class AMP_Media_Converter_Image_To_PDF(AMP_Media_Converter_Interface):
             im_list.append( Image.open(path + '/' + f) )
 
         # create path and filename for the PDF we're trying to save
-        pdf_file_name_path = path + '/' + dir_name + '/' + pdf_file_name + ".pdf"
+        pdf_file_name_path = dir_name + '/' + pdf_file_name + ".pdf"
 
         try:
             im1.save(pdf_file_name_path, "PDF" ,resolution=100.0, save_all=True, append_images=im_list)
