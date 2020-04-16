@@ -38,18 +38,18 @@ class TestAmpMediaConverterUserInteraction(unittest.TestCase):
       self.assertEqual(response, expected_response)
 
 
-    @patch('builtins.input', lambda *args: 10)
-    def test_get_user_sub_directory_choice_not_in_list(self):
-      pass
-      ''' Test directory choice
+    # @patch('builtins.input', lambda *args: 10)
+    # def test_get_user_sub_directory_choice_not_in_list(self):
+    #   pass
+    #   ''' Test directory choice
 
-          This test validates the process where
-          the user is asked to choose from a list
-          ['one','two','three']
-          the user will enter an index option that
-          will return the value. This test checks for 
-          out of bounds values.
-      '''
+    #       This test validates the process where
+    #       the user is asked to choose from a list
+    #       ['one','two','three']
+    #       the user will enter an index option that
+    #       will return the value. This test checks for 
+    #       out of bounds values.
+    #   '''
 
       # sub_dir_list = ['one','two','three']
       # interaction = AMP_Media_Converter_User_Interaction()
