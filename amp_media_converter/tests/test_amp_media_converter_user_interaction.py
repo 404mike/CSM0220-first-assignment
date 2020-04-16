@@ -1,12 +1,12 @@
 import unittest
 from unittest.mock import patch
-from amp_media_converter import AMP_Media_Converter_User_Interaction
+from amp_media_converter import AmpMediaConverterUserInteraction
 
-class Test_AMP_Media_Converter_User_Interaction(unittest.TestCase):
+class TestAmpMediaConverterUserInteraction(unittest.TestCase):
 
   def __init__(self, *args, **kwargs):
-    super(Test_AMP_Media_Converter_User_Interaction, self).__init__(*args, **kwargs)
-    self.amp_interact = AMP_Media_Converter_User_Interaction()
+    super(TestAmpMediaConverterUserInteraction, self).__init__(*args, **kwargs)
+    self.amp_interact = AmpMediaConverterUserInteraction()
 
     @patch('builtins.input', lambda *args: '/var/foo')
     def test_get_dir_path(self):

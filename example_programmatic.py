@@ -1,10 +1,10 @@
-from amp_media_converter import AMP_Media_Converter_Image, AMP_Media_Converter_File_Manager, AMP_Media_Converter_Image_To_PDF
+from amp_media_converter import AmpMediaConverterImage, AmpMediaConverterFileManager, AmpMediaConverterImageToPDF
 import random
 import string
 
-amp = AMP_Media_Converter_Image()
-amp_file = AMP_Media_Converter_File_Manager()
-amp_pdf = AMP_Media_Converter_Image_To_PDF()
+amp = AmpMediaConverterImage()
+amp_file = AmpMediaConverterFileManager()
+amp_pdf = AmpMediaConverterImageToPDF()
 
 # path to images
 path_to_images = './amp_media_converter/tests/files/images/'

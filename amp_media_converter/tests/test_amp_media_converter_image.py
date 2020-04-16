@@ -2,7 +2,7 @@ import os
 import os.path
 import shutil
 import unittest
-from amp_media_converter import AMP_Media_Converter_Image 
+from amp_media_converter import AmpMediaConverterImage 
 from PIL import Image
 
 class Test_AMP_Media_Converter_Image(unittest.TestCase):
@@ -10,7 +10,7 @@ class Test_AMP_Media_Converter_Image(unittest.TestCase):
 
   def __init__(self, *args, **kwargs):
     super(Test_AMP_Media_Converter_Image, self).__init__(*args, **kwargs)
-    self.amp_image = AMP_Media_Converter_Image()
+    self.amp_image = AmpMediaConverterImage()
 
   def setUp(self):
     ''' Create new thumbnail directory'''

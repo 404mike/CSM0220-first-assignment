@@ -1,10 +1,14 @@
-from PIL import Image
-from amp_media_converter import AMP_Media_Converter_Interface
-from amp_media_converter import AMP_Media
+#!/usr/bin/env python
+"""
+This class is used to transform image to a PDF document
+"""
 import re
+from PIL import Image
+from amp_media_converter import AmpMediaConverterInterface
+from amp_media_converter import AmpMedia
 
-class AMP_Media_Converter_Image_To_PDF(AMP_Media_Converter_Interface):
-    ''' Class to convert images using the Pillow library
+class AmpMediaConverterImageToPDF(AmpMediaConverterInterface):
+    ''' Class to convert images using the Pillow library to PDF format
 
         See https://pillow.readthedocs.io/en/stable/ for more details
         on Pillow library
@@ -15,7 +19,7 @@ class AMP_Media_Converter_Image_To_PDF(AMP_Media_Converter_Interface):
         # thumbnails are save to
         self.thumb_dir = 'pdf'
 
-        self.amp = AMP_Media()
+        self.amp = AmpMedia()
 
     def convert(self, file_extensions=['jpg']):
         ''' Method to start converting images
@@ -35,18 +39,18 @@ class AMP_Media_Converter_Image_To_PDF(AMP_Media_Converter_Interface):
 
             Parameter has a default list contain the file extension for jpg
         '''
-        
+
         # Ask the user path to directory
         _, path, files = self.get_directory_path(file_extensions)
         # send the files to be converted
         self.process_files(path, files)
 
-    def get_directory_path(self,file_extensions):
+    def get_directory_path(self, file_extensions):
         ''' Method to prompt the user for a directory path
 
             Args:
                 file_extensions (list): List of file types to convert
-            
+
             Returns:
                 list: boolean - True or False if everything worked correctly
                       path - the path to the directory specified by the user
@@ -54,14 +58,14 @@ class AMP_Media_Converter_Image_To_PDF(AMP_Media_Converter_Interface):
         '''
 
         dir_files = self.amp.get_dir_path(file_extensions)
-        return dir_files 
+        return dir_files
 
     def convert_multi_type(self, file_extensions=''):
         ''' Method to convert multiple file extensions
 
             Although the convert method can accept multiple
             file extensions, this method is intended to be
-            used as clear indication that the intention of the 
+            used as clear indication that the intention of the
             method is to accept multiple file extensions.
 
             The method calls the convert method.
@@ -70,10 +74,11 @@ class AMP_Media_Converter_Image_To_PDF(AMP_Media_Converter_Interface):
                 file_extensions (list): List of file types to convert
 
         '''
-        
+
         # throw exception if no parameter specified
         if not file_extensions:
-            raise Exception("No file extensions found, pass a list of file extnesions, e.g. ['jpg','png']")
+            raise Exception("No file extensions found, pass a list of"
+                            "file extnesions, e.g. ['jpg','png']")
 
         # call convert method with list of file extensions
         self.convert(file_extensions)
@@ -98,7 +103,7 @@ class AMP_Media_Converter_Image_To_PDF(AMP_Media_Converter_Interface):
 
             The method accepts two parameters
             the current location of the file
-            and the destination of where you 
+            and the destination of where you
             want to move the file to?
 
             This method calls move_file from
@@ -118,7 +123,7 @@ class AMP_Media_Converter_Image_To_PDF(AMP_Media_Converter_Interface):
         ''' Method to create a new directory
 
             This method is intended to be used programatically
-            
+
             Args:
                 path (string) - directory path
                 dir_name (string) - new directory name
@@ -141,7 +146,7 @@ class AMP_Media_Converter_Image_To_PDF(AMP_Media_Converter_Interface):
             The create_new_directory will try and create a new directory, but
             if one with the self.thumb_dir name already exists, it will prompt
             the user to enter a new directory name
-        
+
             Args:
                 path (string) - directory path
                 files (list) - list of images to convert
@@ -150,14 +155,14 @@ class AMP_Media_Converter_Image_To_PDF(AMP_Media_Converter_Interface):
         # get user thumbnail size
         while True:
             try:
-                pdf_file_name = input ("Enter a filename for the PDF: ").strip()
+                pdf_file_name = input("Enter a filename for the PDF: ").strip()
                 if re.match(r'^[A-Za-z0-9_]+$', pdf_file_name):
                     break
                 else:
                     print("Not a valid file name")
             except ValueError:
-                print ("Not a valid file name")
-                 
+                print("Not a valid file name")
+
         # check thumbnail directory exists
         dir_name = self.amp.create_processed_items_directory(path, self.thumb_dir)
 
@@ -188,15 +193,15 @@ class AMP_Media_Converter_Image_To_PDF(AMP_Media_Converter_Interface):
         im_list = []
 
         # loop through the remaining images
-        for f in files:
+        for image_file in files:
             # open the image and save to the list
-            im_list.append( Image.open(path + '/' + f) )
+            im_list.append(Image.open(path + '/' + image_file))
 
         # create path and filename for the PDF we're trying to save
         pdf_file_name_path = dir_name + '/' + pdf_file_name + ".pdf"
 
         try:
-            im1.save(pdf_file_name_path, "PDF" ,resolution=100.0, save_all=True, append_images=im_list)
+            im1.save(pdf_file_name_path, "PDF",
+                     resolution=100.0, save_all=True, append_images=im_list)
         except (OSError, IOError):
             print("Could not save PDF")
-            

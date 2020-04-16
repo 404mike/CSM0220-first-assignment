@@ -1,4 +1,6 @@
-class AMP_Media_Converter_Interface:
+'''Abstract Interface'''
+
+class AmpMediaConverterInterface:
     ''' Abstract Class for media converter classes
 
         Any class that converts media should inherit from this class
@@ -30,7 +32,7 @@ class AMP_Media_Converter_Interface:
     def convert(self):
         ''' Method to convert media
             it should accept a list parameter - file_extensions
-            which the class should search for an convert 
+            which the class should search for an convert
         '''
 
         raise NotImplementedError("Subclass must implement this abstract method")
@@ -41,4 +43,3 @@ class AMP_Media_Converter_Interface:
         '''
 
         raise NotImplementedError("Subclass must implement this abstract method")
-

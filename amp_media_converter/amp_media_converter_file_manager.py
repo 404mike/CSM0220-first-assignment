@@ -1,24 +1,28 @@
+#!/usr/bin/env python
+"""
+This class deals with files and directories
+"""
 import os
 import os.path
 
-class AMP_Media_Converter_File_Manager:
-    ''' Class to manage files and directories for the AMP_Media package
+class AmpMediaConverterFileManager:
+    ''' Class to manage files and directories for the AmpMedia package
     '''
 
     def validate_path(self, path):
-        ''' Method to validate directory path
+        '''Method to validate directory path
 
             The method will look to see if the directory
             specified in the path parameter is on disk
 
             Args:
-                path (string) - directory path 
+                path (string) - directory path
 
             Returns:
                 boolean
         '''
 
-        is_valid_dir = os.path.isdir(path)  
+        is_valid_dir = os.path.isdir(path)
         return is_valid_dir
 
     def list_directory_media(self, path, file_extensions):
@@ -35,12 +39,12 @@ class AMP_Media_Converter_File_Manager:
                 file_extensions (list) - a list of file extensions, ['jpg','png']
 
             Returns:
-                list - a list of file names 
-        ''' 
-    
+                list - a list of file names
+        '''
+
         included_extensions = file_extensions
         file_names = [fn for fn in os.listdir(path)
-                    if any(fn.endswith(ext) for ext in included_extensions)]
+                      if any(fn.endswith(ext) for ext in included_extensions)]
 
         return file_names
 
@@ -50,7 +54,7 @@ class AMP_Media_Converter_File_Manager:
 
             This method will call listdirs to return
             a list of sub directories for the given path.
-            It will then display the user with a choice of 
+            It will then display the user with a choice of
             which directory they want to use.
 
             Args:
@@ -66,26 +70,26 @@ class AMP_Media_Converter_File_Manager:
         # default search option - to search again
         sub_dir_list = ["*** Search Again ***"]
         # get a list of sub directories
-        dirs = self.listdirs(path)
+        directories = self.listdirs(path)
 
         # add each of the sub directories to the
         # sub_dir_list list
-        for d in dirs:
-            sub_dir_list.append(d)
+        for directory in directories:
+            sub_dir_list.append(directory)
 
         # Loop through all the options
         for i in range(len(sub_dir_list)):
-            print("{} - {}".format(i,sub_dir_list[i]))
+            print("{} - {}".format(i, sub_dir_list[i]))
 
         return sub_dir_list
 
     def listdirs(self, path):
         ''' Method to return a list of sub directories
             in the given file path.
-            
+
             Args:
                 path (string) - path to directory
-            
+
             Returns:
                 list - list of sub directories
         '''
@@ -97,9 +101,9 @@ class AMP_Media_Converter_File_Manager:
         ''' Method to return a list of files in a directory
             limited to file extensions
 
-            This method is intended to 
+            This method is intended to be used programatically
         '''
-        
+
         return self.list_directory_media(path, file_extensions)
 
     def create_directory(self, path):
@@ -118,10 +122,10 @@ class AMP_Media_Converter_File_Manager:
         try:
             os.mkdir(path)
         except OSError:
-            print ("Creation of the directory %s failed" % path)
+            print("Creation of the directory %s failed" % path)
             return False
         else:
-            print ("Successfully created the directory %s " % path)
+            print("Successfully created the directory %s " % path)
             return True
 
     def delete_file(self, path):
@@ -136,7 +140,7 @@ class AMP_Media_Converter_File_Manager:
             Returns:
                 boolean
         '''
-        
+
         try:
             os.remove(path)
             return True
@@ -149,7 +153,7 @@ class AMP_Media_Converter_File_Manager:
 
             The method accepts two parameters
             the current location of the file
-            and the destination of where you 
+            and the destination of where you
             want to move the file to?
 
             Args:

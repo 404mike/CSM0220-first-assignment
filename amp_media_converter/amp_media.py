@@ -1,15 +1,20 @@
-from amp_media_converter import AMP_Media_Converter_User_Interaction
-from amp_media_converter import AMP_Media_Converter_File_Manager
-import re
+#!/usr/bin/env python
+"""
+This class is an interface to the AmpMediaConverterUserInteraction
+and AmpMediaConverterFileManager classes
+"""
 
-class AMP_Media:
+from amp_media_converter import AmpMediaConverterUserInteraction
+from amp_media_converter import AmpMediaConverterFileManager
+
+class AmpMedia:
     ''' Class Interface for Media Converter classes
 
-        This class is intended to be an interfce to the 
-        AMP_Media_Converter_User_Interaction and 
+        This class is intended to be an interfce to the
+        AmpMediaConverterUserInteraction and
         AMP_Media_Converter_File_Manager classes
         and should be imported by classes such as
-        Image converter and Docuemnt converters which 
+        Image converter and Docuemnt converters which
         can use the following methods:
 
         get_dir_path
@@ -22,27 +27,31 @@ class AMP_Media:
     '''
 
     def __init__(self):
-        self.amp_interact = AMP_Media_Converter_User_Interaction()
-        self.amp_dir = AMP_Media_Converter_File_Manager()
-    
-    def get_dir_path(self,file_extensions, path =''):
-        ''' Method to prompt a user for a directory path
+        self.amp_interact = AmpMediaConverterUserInteraction()
+        self.amp_dir = AmpMediaConverterFileManager()
 
-            This method will call the get_dir_path in 
-            the AMP_Media_Converter_User_Interaction class
+    def get_dir_path(self, file_extensions, path=''):
+        '''
+            Method to prompt a user for a directory path
+
+            This method will call the get_dir_path in
+            the AmpMediaConverterUserInteraction class
             which will prompt a user for a directory path
             and validate the input.
             It will then call validate_dir_path to check
             if the path submitted exists on disk.
-            
+
             If the path is valid, it will call the
-            check_fies_exist to check if there are 
+            check_fies_exist to check if there are
             files in that directory
 
             Args:
                 path (string) - path to directory
+
+            Returns:
+                list
         '''
-        
+
         # check if no path has been given
         if not path:
             # get user input for directory
@@ -52,10 +61,10 @@ class AMP_Media:
         valid_dir = self.validate_dir_path(path)
 
         if valid_dir:
-            return self.check_files_exist(path,file_extensions)
+            return self.check_files_exist(path, file_extensions)
         else:
             print("{} doesn't exist, try again".format(path))
-            self.get_dir_path(file_extensions)  
+            self.get_dir_path(file_extensions)
 
     def validate_dir_path(self, path):
         ''' Method to validate if the directory path
@@ -67,7 +76,7 @@ class AMP_Media:
 
             Args:
                 path (string) - directory path
-            
+
             Returns:
                 boolean
         '''
@@ -76,16 +85,17 @@ class AMP_Media:
 
         if is_valid_dir:
             return True
-        else:
-            return False
+
+        return False
 
     def check_files_exist(self, path, file_extensions):
-        ''' Method to check if there are files with the 
+        '''
+            Method to check if there are files with the
             file extentension in the directory path
 
             The method will use the list_directory_media
             from the AMP_Media_Converter_File_Manager class,
-            the list_directory_media method will search for 
+            the list_directory_media method will search for
             files matching the file extensions in the directory
             path.
 
@@ -93,10 +103,10 @@ class AMP_Media:
             the file_names variable, is empty (ie no files found)
             call the list_sub_dir method which will return any sub directories
             to one level for the directory, this will prompt the
-            user to chose one of these directories, which will start the 
+            user to chose one of these directories, which will start the
             search for files again.
-            However, if files are found we can return a list back to the 
-            calling method.           
+            However, if files are found we can return a list back to the
+            calling method.
 
             Args:
                 path (string) - directory path
@@ -107,12 +117,12 @@ class AMP_Media:
         '''
 
         file_names = self.amp_dir.list_directory_media(path, file_extensions)
-        
+
         # if list is not empty
         if file_names:
-            return [True,path,file_names]
-        else:
-            return self.list_sub_dir(path,file_extensions)
+            return [True, path, file_names]
+
+        return self.list_sub_dir(path, file_extensions)
 
     def list_sub_dir(self, path, file_extensions):
         ''' Method to list sub directories in a given directory
@@ -122,7 +132,7 @@ class AMP_Media:
 
             A list of directries in the path directory
             if there are any, which is called from the
-            sub_dir_list method from the 
+            sub_dir_list method from the
             AMP_Media_Converter_File_Manager class.
 
             The user is then prompted to choose one of the
@@ -136,7 +146,7 @@ class AMP_Media:
                 path (string) - directory path
 
         '''
-        
+
         # get a list of sub directories
         sub_dir_list = self.amp_dir.list_sub_directory_contents(path)
 
@@ -148,7 +158,7 @@ class AMP_Media:
             return self.get_dir_path(file_extensions, '')
 
         # format the path with a slash
-        if(path.endswith('/')):
+        if path.endswith('/'):
             new_path = path + chosen_sub_dir
         else:
             new_path = path + '/' + chosen_sub_dir
@@ -160,7 +170,7 @@ class AMP_Media:
         ''' Method to create a processed item directory
             for the processed items - such as thumbnails.
 
-            The method uses the create_directory method from 
+            The method uses the create_directory method from
             the AMP_Media_Converter_File_Manager class
             to create new directories.
 
@@ -168,15 +178,15 @@ class AMP_Media:
             we're trying to create already exists?
 
             If the directory does already exist, prompt the
-            user to enter a new name for the directory, this 
-            is done through the get_new_directory_name method 
-            from the AMP_Media_Converter_User_Interaction class.
+            user to enter a new name for the directory, this
+            is done through the get_new_directory_name method
+            from the AmpMediaConverterUserInteraction class.
             Once a new name has been chosen, create the directory
             from the create_directory method from the
             AMP_Media_Converter_File_Manager class.
 
             If there isn't a directory with the directory name,
-            create the directory from the create_directory method 
+            create the directory from the create_directory method
             from the AMP_Media_Converter_File_Manager class.
 
             Args:
@@ -193,17 +203,17 @@ class AMP_Media:
         # if it does - prompt the user to choose a new directory name
         if is_valid_dir:
             print("{} directory already exists, create a new directory".format(dir_name))
-            
+
             # get user input
             new_dir_name = self.amp_interact.get_new_directory_name()
 
             # create new directory
             self.amp_dir.create_directory(path + '/' + new_dir_name)
             return new_dir_name
-        else:
-            # create new directory
-            self.amp_dir.create_directory(path + '/' + dir_name)
-            return dir_name
+
+        # create new directory
+        self.amp_dir.create_directory(path + '/' + dir_name)
+        return dir_name
 
     def create_new_diretory(self, path, dir_name):
         ''' Method to create a processed item directory
@@ -211,7 +221,7 @@ class AMP_Media:
 
             This method is intended to be used programatically.
 
-            The new directory is created from the create_directory 
+            The new directory is created from the create_directory
             method from the AMP_Media_Converter_File_Manager class.
 
             Args:
@@ -230,7 +240,7 @@ class AMP_Media:
 
             The method accepts two parameters
             the current location of the file
-            and the destination of where you 
+            and the destination of where you
             want to move the file to?
 
             This method calls move_file from
@@ -247,7 +257,7 @@ class AMP_Media:
         return self.amp_dir.move_file(path, destination)
 
     def delete_file(self, path):
-        ''' Method to delete a file
+        '''Method to delete a file
 
             This method accepts one parameter,
             the path to the file you want to delete.
@@ -259,4 +269,4 @@ class AMP_Media:
                 boolean
         '''
 
-        return self.amp_dir.delete_file(path)       
+        return self.amp_dir.delete_file(path)

@@ -1,13 +1,13 @@
 import os
 import os.path
 import unittest
-from amp_media_converter import AMP_Media_Converter_File_Manager 
+from amp_media_converter import AmpMediaConverterFileManager 
 
 class Test_AMP_Media_Converter_File_Manager(unittest.TestCase):
 
   def __init__(self, *args, **kwargs):
     super(Test_AMP_Media_Converter_File_Manager, self).__init__(*args, **kwargs)
-    self.amp_dir = AMP_Media_Converter_File_Manager()
+    self.amp_dir = AmpMediaConverterFileManager()
 
   def setup(self):
     pass
