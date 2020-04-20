@@ -158,7 +158,7 @@ class AmpMedia:
             return self.get_dir_path(file_extensions, '')
 
         # format the path with a slash
-        if path.endswith('/'):
+        if path.endswith('/') or path.endswith('\\'):
             new_path = os.path.join(path, chosen_sub_dir)
         else:
             new_path = os.path.join(path, chosen_sub_dir)
