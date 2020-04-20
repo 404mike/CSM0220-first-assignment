@@ -2,6 +2,7 @@
 """
 This class is used to transform images to thumbnails
 """
+import os
 from PIL import Image
 from amp_media_converter import AmpMediaConverterInterface
 from amp_media_converter import AmpMedia
@@ -164,7 +165,7 @@ class AmpMediaConverterImage(AmpMediaConverterInterface):
         # check thumbnail directory exists
         dir_name = self.amp.create_processed_items_directory(path, self.thumb_dir)
 
-        dir_name = path + '/' +dir_name
+        dir_name = os.path.join(path, dir_name)
 
         # loop each file and send it to convert_image to be processed
         for img_file in files:
@@ -185,10 +186,10 @@ class AmpMediaConverterImage(AmpMediaConverterInterface):
         '''
 
         print("Converting {}".format(img_file))
-        # print(path + '/' + dir_name + '/' + f)
+        
         try:
             # open image to convert
-            img = Image.open(path + '/' + img_file)
+            img = Image.open(os.path.join(path, img_file))
             (width, height) = img.size
 
             # deal with landscape vs potrait
@@ -201,7 +202,7 @@ class AmpMediaConverterImage(AmpMediaConverterInterface):
 
             img = img.resize((new_width, new_height), Image.ANTIALIAS)
 
-            # save thumbnail
-            img.save(dir_name + '/' + img_file)
+            # save thumbnail            
+            img.save(os.path.join(dir_name, img_file))
         except IOError:
             print("Unable to save file")

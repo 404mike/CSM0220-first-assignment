@@ -3,7 +3,7 @@
 This class is an interface to the AmpMediaConverterUserInteraction
 and AmpMediaConverterFileManager classes
 """
-
+import os
 from amp_media_converter import AmpMediaConverterUserInteraction
 from amp_media_converter import AmpMediaConverterFileManager
 
@@ -159,9 +159,9 @@ class AmpMedia:
 
         # format the path with a slash
         if path.endswith('/'):
-            new_path = path + chosen_sub_dir
+            new_path = os.path.join(path, chosen_sub_dir)
         else:
-            new_path = path + '/' + chosen_sub_dir
+            new_path = os.path.join(path, chosen_sub_dir)
 
         # return new_path
         return self.get_dir_path(file_extensions, new_path)
@@ -198,7 +198,7 @@ class AmpMedia:
         '''
 
         # check if directory already exists
-        is_valid_dir = self.validate_dir_path(path + '/' + dir_name)
+        is_valid_dir = self.validate_dir_path(os.path.join(path, dir_name))
 
         # if it does - prompt the user to choose a new directory name
         if is_valid_dir:
@@ -208,11 +208,11 @@ class AmpMedia:
             new_dir_name = self.amp_interact.get_new_directory_name()
 
             # create new directory
-            self.amp_dir.create_directory(path + '/' + new_dir_name)
+            self.amp_dir.create_directory(os.path.join(path, new_dir_name))
             return new_dir_name
 
         # create new directory
-        self.amp_dir.create_directory(path + '/' + dir_name)
+        self.amp_dir.create_directory(os.path.join(path, dir_name))
         return dir_name
 
     def create_new_diretory(self, path, dir_name):
@@ -232,7 +232,7 @@ class AmpMedia:
                 boolean
         '''
 
-        return self.amp_dir.create_directory(path + '/' + dir_name)
+        return self.amp_dir.create_directory(os.path.join(path, dir_name))
 
 
     def move_file(self, path, destination):

@@ -2,6 +2,7 @@
 """
 This class is used to transform image to a PDF document
 """
+import os
 import re
 from PIL import Image
 from amp_media_converter import AmpMediaConverterInterface
@@ -166,7 +167,7 @@ class AmpMediaConverterImageToPDF(AmpMediaConverterInterface):
         # check thumbnail directory exists
         dir_name = self.amp.create_processed_items_directory(path, self.thumb_dir)
 
-        dir_name = path + '/' + dir_name
+        dir_name = os.path.join(path, dir_name)
 
         # loop each file and send it to convert_image to be processed
         self.convert_image_to_pdf(files, path, dir_name, pdf_file_name)
@@ -184,7 +185,7 @@ class AmpMediaConverterImageToPDF(AmpMediaConverterInterface):
                 pdf_file_name (string) - name of PDF file
         '''
         # get first image
-        im1 = Image.open(path + '/' + files[0])
+        im1 = Image.open(os.path.join(path, files[0]))
 
         # remove the first image from the list
         files.pop(0)
@@ -195,10 +196,10 @@ class AmpMediaConverterImageToPDF(AmpMediaConverterInterface):
         # loop through the remaining images
         for image_file in files:
             # open the image and save to the list
-            im_list.append(Image.open(path + '/' + image_file))
+            im_list.append(Image.open(os.path.join(path, image_file)))
 
         # create path and filename for the PDF we're trying to save
-        pdf_file_name_path = dir_name + '/' + pdf_file_name + ".pdf"
+        pdf_file_name_path = os.path.join(dir_name, pdf_file_name) + ".pdf"
 
         try:
             im1.save(pdf_file_name_path, "PDF",

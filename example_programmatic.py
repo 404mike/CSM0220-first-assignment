@@ -33,8 +33,8 @@ file_ext = ['jpg','png']
 files = amp_file.search_file_types(path_to_images, file_ext)
 
 # loop each image file and convert to thumbnail
-for file in files:
-  amp.convert_image(file, path_to_images, thumb_dir, 400)
+for img_file in files:
+  amp.convert_image(img_file, path_to_images, thumb_dir, 40)
 
 # create pdf from the thumbnails
-amp_pdf.convert_image_to_pdf(files, thumb_dir, thumb_dir, 'test.pdf')
+amp_pdf.convert_image_to_pdf(files, thumb_dir, thumb_dir, 'dogs.pdf')

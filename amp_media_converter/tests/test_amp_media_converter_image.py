@@ -72,7 +72,7 @@ class Test_AMP_Media_Converter_Image(unittest.TestCase):
 
     # test the thumbnails have been created
     for image in images_list:
-      new_dir_path = images_dir_path + thumbnail_dir + '/' + image
+      new_dir_path = os.path.join(images_dir_path, thumbnail_dir, image)
       self.assertTrue(os.path.exists(new_dir_path))
 
   def test_converted_images_dimensions(self):
@@ -107,7 +107,7 @@ class Test_AMP_Media_Converter_Image(unittest.TestCase):
       image = k
       expected_width = v['width']
       expected_height = v['height']
-      im = Image.open(images_dir_path + thumbnail_dir_path + '/' + image)
+      im = Image.open(os.path.join(images_dir_path, thumbnail_dir_path, image))
       w, h = im.size
       # print("{} - {} - {}".format(image,w,h))
       self.assertEqual(expected_width, w)
