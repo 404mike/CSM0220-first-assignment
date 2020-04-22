@@ -92,6 +92,28 @@ and convert images.
       amp_pdf.convert_image_to_pdf(files, thumb_dir, thumb_dir, 'test.pdf')
 ```
 
+
+## Writing your own converter
+
+The package uses interfaces and inheritance which all converters must use. 
+
+Any new convertert must implement AmpMediaConverterInterface, which contains a number of abstract methods. These act as a contract for any converter classes.
+
+### Extending the package
+
+All converters must implement the following methods:
+
+* get_directory_path
+* delete_file
+* move_file
+* create_directory
+* convert
+* convert_multi_type
+
+And to inherit from the AmpMedia class, which is an interface between AmpMediaConverterFileManager and AmpMediaConverterUserInteraction, see amp_media_converter_image.py for example.
+
+The convert method accepts a single parameter, file_extensions, as a list. This list should contain the defult file extensions for the method to convert. It can be overridden by passing the a list as a parameter.
+
 ## unit testing
 
 To run unit test.
