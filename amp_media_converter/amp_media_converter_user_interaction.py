@@ -2,6 +2,7 @@
 
 import re
 
+
 class AmpMediaConverterUserInteraction:
     ''' Class to manage all user interactions.
     '''
@@ -48,7 +49,8 @@ class AmpMediaConverterUserInteraction:
         while True:
             try:
                 # get user input
-                option = int(input("Choose a number to search or 0 to choose a new directory: "))
+                option = int(
+                    input("Choose a number to search or 0 to choose a new directory: "))
 
                 try:
                     # test to make sure the number chosen is within the list

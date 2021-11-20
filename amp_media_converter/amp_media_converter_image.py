@@ -7,6 +7,7 @@ from PIL import Image
 from amp_media_converter import AmpMediaConverterInterface
 from amp_media_converter import AmpMedia
 
+
 class AmpMediaConverterImage(AmpMediaConverterInterface):
     ''' Class to convert images using the Pillow library
 
@@ -77,7 +78,8 @@ class AmpMediaConverterImage(AmpMediaConverterInterface):
 
         # throw exception if no parameter specified
         if not file_extensions:
-            raise Exception("No file extensions found, pass a list of file extnesions, e.g. ['jpg','png']")
+            raise Exception(
+                "No file extensions found, pass a list of file extnesions, e.g. ['jpg','png']")
 
         # call convert method with list of file extensions
         self.convert(file_extensions)
@@ -157,13 +159,15 @@ class AmpMediaConverterImage(AmpMediaConverterInterface):
         # get user thumbnail size
         while True:
             try:
-                thumb_size = int(input("Enter size of thumnail, number only e.g. 250: "))
+                thumb_size = int(
+                    input("Enter size of thumnail, number only e.g. 250: "))
                 break
             except ValueError:
                 print("Not a number, try again")
 
         # check thumbnail directory exists
-        dir_name = self.amp.create_processed_items_directory(path, self.thumb_dir)
+        dir_name = self.amp.create_processed_items_directory(
+            path, self.thumb_dir)
 
         dir_name = os.path.join(path, dir_name)
 
@@ -186,7 +190,7 @@ class AmpMediaConverterImage(AmpMediaConverterInterface):
         '''
 
         print("Converting {}".format(img_file))
-        
+
         try:
             # open image to convert
             img = Image.open(os.path.join(path, img_file))
@@ -195,14 +199,14 @@ class AmpMediaConverterImage(AmpMediaConverterInterface):
             # deal with landscape vs potrait
             if width > height:
                 new_width = thumb_size
-                new_height = int(new_width * height/ width)
+                new_height = int(new_width * height / width)
             else:
                 new_height = thumb_size
                 new_width = int(new_height * width / height)
 
             img = img.resize((new_width, new_height), Image.ANTIALIAS)
 
-            # save thumbnail            
+            # save thumbnail
             img.save(os.path.join(dir_name, img_file))
         except IOError:
             print("Unable to save file")

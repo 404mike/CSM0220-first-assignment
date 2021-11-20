@@ -7,6 +7,7 @@ import os
 from amp_media_converter import AmpMediaConverterUserInteraction
 from amp_media_converter import AmpMediaConverterFileManager
 
+
 class AmpMedia:
     ''' Class Interface for Media Converter classes
 
@@ -151,7 +152,8 @@ class AmpMedia:
         sub_dir_list = self.amp_dir.list_sub_directory_contents(path)
 
         # ask user to choose from the list of directories
-        chosen_sub_dir = self.amp_interact.get_user_sub_directory_choice(sub_dir_list)
+        chosen_sub_dir = self.amp_interact.get_user_sub_directory_choice(
+            sub_dir_list)
 
         # if the user chooses to start again
         if chosen_sub_dir == '*** Search Again ***':
@@ -202,7 +204,8 @@ class AmpMedia:
 
         # if it does - prompt the user to choose a new directory name
         if is_valid_dir:
-            print("{} directory already exists, create a new directory".format(dir_name))
+            print(
+                "{} directory already exists, create a new directory".format(dir_name))
 
             # get user input
             new_dir_name = self.amp_interact.get_new_directory_name()
@@ -233,7 +236,6 @@ class AmpMedia:
         '''
 
         return self.amp_dir.create_directory(os.path.join(path, dir_name))
-
 
     def move_file(self, path, destination):
         ''' Method to move a file

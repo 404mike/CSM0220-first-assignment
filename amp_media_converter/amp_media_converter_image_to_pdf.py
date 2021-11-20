@@ -8,6 +8,7 @@ from PIL import Image
 from amp_media_converter import AmpMediaConverterInterface
 from amp_media_converter import AmpMedia
 
+
 class AmpMediaConverterImageToPDF(AmpMediaConverterInterface):
     ''' Class to convert images using the Pillow library to PDF format
 
@@ -165,7 +166,8 @@ class AmpMediaConverterImageToPDF(AmpMediaConverterInterface):
                 print("Not a valid file name")
 
         # check thumbnail directory exists
-        dir_name = self.amp.create_processed_items_directory(path, self.thumb_dir)
+        dir_name = self.amp.create_processed_items_directory(
+            path, self.thumb_dir)
 
         dir_name = os.path.join(path, dir_name)
 
