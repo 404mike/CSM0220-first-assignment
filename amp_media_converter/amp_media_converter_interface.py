@@ -1,5 +1,6 @@
 '''Abstract Interface'''
 
+
 class AmpMediaConverterInterface:
     ''' Abstract Class for media converter classes
 
@@ -15,19 +16,22 @@ class AmpMediaConverterInterface:
         ''' Method to prompt the user for a directory path
         '''
 
-        raise NotImplementedError("Subclass must implement this abstract method")
+        raise NotImplementedError(
+            "Subclass must implement this abstract method")
 
     def delete_file(self):
         ''' Method to allow a user to delete a file
         '''
 
-        raise NotImplementedError("Subclass must implement this abstract method")
+        raise NotImplementedError(
+            "Subclass must implement this abstract method")
 
     def move_file(self):
         ''' Method to allow a user to move a file
         '''
 
-        raise NotImplementedError("Subclass must implement this abstract method")
+        raise NotImplementedError(
+            "Subclass must implement this abstract method")
 
     def convert(self):
         ''' Method to convert media
@@ -35,11 +39,13 @@ class AmpMediaConverterInterface:
             which the class should search for an convert
         '''
 
-        raise NotImplementedError("Subclass must implement this abstract method")
+        raise NotImplementedError(
+            "Subclass must implement this abstract method")
 
     def create_directory(self):
         ''' Method to allow a user to create a directory
             This method is intended to be used programatically
         '''
 
-        raise NotImplementedError("Subclass must implement this abstract method")
+        raise NotImplementedError(
+            "Subclass must implement this abstract method")

@@ -5,6 +5,7 @@ This class deals with files and directories
 import os
 import os.path
 
+
 class AmpMediaConverterFileManager:
     ''' Class to manage files and directories for the AmpMedia package
     '''
@@ -95,7 +96,10 @@ class AmpMediaConverterFileManager:
         '''
 
         # credit to https://stackoverflow.com/a/31049707/2075215
-        return [d for d in os.listdir(path) if os.path.isdir(os.path.join(path, d))]
+        return [
+            d for d in os.listdir(path) if os.path.isdir(
+                os.path.join(
+                    path, d))]
 
     def search_file_types(self, path, file_extensions):
         ''' Method to return a list of files in a directory
@@ -170,4 +174,3 @@ class AmpMediaConverterFileManager:
         except (OSError, IOError):
             print("Error moving the file")
             print("Couldn't move {} to {}".format(path, destination))
-        
